@@ -1,42 +1,78 @@
 package university.dao;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import university.entities.Student;
+import university.util.HibernateUtil;
 
 import java.util.List;
 
-public class StudentDao extends HibernateSessionDAO implements DaoInterface<Student, Long> {
+public class StudentDao implements DaoInterface<Student, Long> {
+    private Session currentSession;
 
-    @Override
-    public void persist(Student entity) {
-        openCurrentSession();
-        getCurrentSession().save(entity);
-        closeCurrentSession();
+    private Transaction currentTransaction;
+
+    public StudentDao(){
+
     }
 
-    @Override
+    public Session openCurrentSession() {
+        currentSession = HibernateUtil.getSessionFactory().openSession();
+        return currentSession;
+    }
+
+    public Session openCurrentSessionwithTransaction() {
+        currentSession = HibernateUtil.getSessionFactory().openSession();
+        currentTransaction = currentSession.beginTransaction();
+        return currentSession;
+    }
+
+    public void closeCurrentSession() {
+        currentSession.close();
+    }
+
+    public void closeCurrentSessionwithTransaction() {
+        currentTransaction.commit();
+        currentSession.close();
+    }
+
+    public Session getCurrentSession() {
+        return currentSession;
+    }
+
+    public void setCurrentSession(Session currentSession) {
+        this.currentSession = currentSession;
+    }
+
+    public Transaction getCurrentTransaction() {
+        return currentTransaction;
+    }
+
+    public void setCurrentTransaction(Transaction currentTransaction) {
+        this.currentTransaction = currentTransaction;
+    }
+
+    public void persist(Student entity) {
+        getCurrentSession().save(entity);
+    }
+
     public void update(Student entity) {
         getCurrentSession().update(entity);
     }
 
-    @Override
-    public Student findById(Long aLong) {
-        return getCurrentSession().get(Student.class, aLong);
+    public Student findById(Long id) {
+        return getCurrentSession().get(Student.class, id);
     }
 
-    @Override
     public void delete(Student entity) {
         getCurrentSession().delete(entity);
-
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
     public List<Student> findAll() {
-        List<Student> books;
-        books = (List<Student>) getCurrentSession().createQuery("from Student").list();
-        return books;
+        return (List<Student>) getCurrentSession().createQuery("from Student").list();
     }
 
-    @Override
     public void deleteAll() {
         List<Student> entityList = findAll();
         for (Student entity : entityList) {

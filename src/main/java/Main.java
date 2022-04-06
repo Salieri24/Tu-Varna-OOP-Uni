@@ -1,13 +1,17 @@
-import university.dao.StudentDao;
 import university.entities.Student;
-import university.services.ExampleData;
+import university.services.StudentService;
 import university.util.HibernateUtil;
 
+import java.time.LocalDate;
+import java.util.List;
+
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         HibernateUtil.getSessionFactory().openSession();
-        StudentDao studentDao = new StudentDao();
-        studentDao.persist(ExampleData.getStudent());
-        assert !studentDao.findAll().isEmpty();
+        StudentService studentService = new StudentService();
+        Student student = new Student("firstName", "lastName", LocalDate.now(), List.of());
+        studentService.persist(student);
+        List<Student> all = studentService.findAll();
+        System.out.println(all.get(0).getFirstName());
     }
 }

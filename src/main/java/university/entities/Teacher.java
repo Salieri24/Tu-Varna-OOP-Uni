@@ -22,7 +22,7 @@ public class Teacher {
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "teacher_id")
     private List<Group> groupList;
 
