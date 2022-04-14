@@ -1,6 +1,6 @@
-import university.entities.Student;
-import university.services.StudentService;
-import university.util.HibernateUtil;
+import university.backend.entities.Student;
+import university.backend.services.StudentService;
+import university.backend.util.HibernateUtil;
 
 import java.time.LocalDate;
 import java.util.List;

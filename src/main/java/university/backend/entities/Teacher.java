@@ -1,4 +1,4 @@
-package university.entities;
+package university.backend.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +25,6 @@ public class Teacher {
     private Date dateOfBirth;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "teacher_id")
-    private List<Group> groupList;
+    private List<university.backend.entities.Group> groupList = new ArrayList<>();
 
 }

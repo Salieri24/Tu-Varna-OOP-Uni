@@ -1,11 +1,11 @@
-package university.services;
+package university.backend.services;
 
-import university.dao.StudentDao;
-import university.entities.Student;
+import university.backend.dao.StudentDao;
+import university.backend.entities.Student;
 
 import java.util.List;
 
-public class StudentService {
+public class StudentService implements Service<Student> {
     private static StudentDao studentDao;
 
     public StudentService() {
@@ -13,15 +13,15 @@ public class StudentService {
     }
 
     public void persist(Student entity) {
-        studentDao.openCurrentSessionwithTransaction();
+        studentDao.openCurrentSessionWithTransaction();
         studentDao.persist(entity);
-        studentDao.closeCurrentSessionwithTransaction();
+        studentDao.closeCurrentSessionWithTransaction();
     }
 
     public void update(Student entity) {
-        studentDao.openCurrentSessionwithTransaction();
+        studentDao.openCurrentSessionWithTransaction();
         studentDao.update(entity);
-        studentDao.closeCurrentSessionwithTransaction();
+        studentDao.closeCurrentSessionWithTransaction();
     }
 
     public Student findById(Long id) {
@@ -32,10 +32,10 @@ public class StudentService {
     }
 
     public void delete(Long id) {
-        studentDao.openCurrentSessionwithTransaction();
+        studentDao.openCurrentSessionWithTransaction();
         Student student = studentDao.findById(id);
         studentDao.delete(student);
-        studentDao.closeCurrentSessionwithTransaction();
+        studentDao.closeCurrentSessionWithTransaction();
     }
 
     public List<Student> findAll() {
@@ -46,9 +46,9 @@ public class StudentService {
     }
 
     public void deleteAll() {
-        studentDao.openCurrentSessionwithTransaction();
+        studentDao.openCurrentSessionWithTransaction();
         studentDao.deleteAll();
-        studentDao.closeCurrentSessionwithTransaction();
+        studentDao.closeCurrentSessionWithTransaction();
     }
 
     public StudentDao studentDao() {

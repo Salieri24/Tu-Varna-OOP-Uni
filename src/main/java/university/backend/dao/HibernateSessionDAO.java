@@ -1,9 +1,9 @@
-package university.dao;
+package university.backend.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import university.util.HibernateUtil;
+import university.backend.util.HibernateUtil;
 
 public class HibernateSessionDAO {
     private Session currentSession;

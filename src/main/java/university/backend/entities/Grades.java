@@ -1,4 +1,4 @@
-package university.entities;
+package university.backend.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

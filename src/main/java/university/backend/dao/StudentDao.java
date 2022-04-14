@@ -1,9 +1,9 @@
-package university.dao;
+package university.backend.dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import university.entities.Student;
-import university.util.HibernateUtil;
+import university.backend.entities.Student;
+import university.backend.util.HibernateUtil;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class StudentDao implements DaoInterface<Student, Long> {
 
     private Transaction currentTransaction;
 
-    public StudentDao(){
+    public StudentDao() {
 
     }
 
@@ -21,7 +21,7 @@ public class StudentDao implements DaoInterface<Student, Long> {
         return currentSession;
     }
 
-    public Session openCurrentSessionwithTransaction() {
+    public Session openCurrentSessionWithTransaction() {
         currentSession = HibernateUtil.getSessionFactory().openSession();
         currentTransaction = currentSession.beginTransaction();
         return currentSession;
@@ -31,7 +31,7 @@ public class StudentDao implements DaoInterface<Student, Long> {
         currentSession.close();
     }
 
-    public void closeCurrentSessionwithTransaction() {
+    public void closeCurrentSessionWithTransaction() {
         currentTransaction.commit();
         currentSession.close();
     }

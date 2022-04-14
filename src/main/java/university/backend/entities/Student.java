@@ -1,4 +1,4 @@
-package university.entities;
+package university.backend.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -24,7 +25,7 @@ public class Student {
     private LocalDate dateOfBirth;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
-    private List<Grades> gradesList;
+    private List<Grades> gradesList = new ArrayList<>();
 
     public Student(String firstName, String lastName, LocalDate dateOfBirth, List<Grades> gradesList) {
         this.firstName = firstName;
