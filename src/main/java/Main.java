@@ -1,17 +1,17 @@
-import university.backend.entities.Student;
-import university.backend.services.StudentService;
-import university.backend.util.HibernateUtil;
+import com.formdev.flatlaf.FlatDarculaLaf;
+import university.backend.entities.University;
+import university.backend.services.UniversityService;
+import university.frontend.Dashboard;
 
-import java.time.LocalDate;
-import java.util.List;
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        HibernateUtil.getSessionFactory().openSession();
-        StudentService studentService = new StudentService();
-        Student student = new Student("firstName", "lastName", LocalDate.now(), List.of());
-        studentService.persist(student);
-        List<Student> all = studentService.findAll();
-        System.out.println(all.get(0).getFirstName());
+        FlatDarculaLaf.setup();
+        JFrame frame = new JFrame("Dashboard");
+        UniversityService universityService = new UniversityService();
+        universityService.persist(new University("TU-Varna"));
+        Dashboard dashboard = new Dashboard(frame);
+
     }
 }

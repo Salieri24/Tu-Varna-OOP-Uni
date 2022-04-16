@@ -54,4 +54,10 @@ public class GroupService implements Service<Group> {
     public GroupDao groupDao() {
         return groupDao;
     }
+
+    public void saveOrUpdate(Group group) {
+        if (group.getId() != null && findById(group.getId()) != null)
+            update(group);
+        else persist(group);
+    }
 }

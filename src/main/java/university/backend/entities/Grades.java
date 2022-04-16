@@ -20,10 +20,20 @@ public class Grades {
     private String subjectName;
     private Integer points = 0;
 
+    public Grades(String subjectName, Integer points) {
+        this.subjectName = subjectName;
+        this.points = points;
+    }
+
     public void addPoints(int n) {
         if (points + n < 100)
             points += n;
         else points = 100;
     }
 
+    @Override
+    public String toString() {
+        return "subjectName='" + subjectName + '\'' +
+                ", points=" + points;
+    }
 }

@@ -1,11 +1,11 @@
-package university.util;
+package university.backend.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
-import university.entities.*;
+import university.backend.entities.*;
 
 import java.util.Properties;
 
@@ -35,7 +35,6 @@ public class HibernateUtil {
 
                 configuration.addAnnotatedClass(Student.class);
                 configuration.addAnnotatedClass(Group.class);
-                configuration.addAnnotatedClass(Subject.class);
                 configuration.addAnnotatedClass(Teacher.class);
                 configuration.addAnnotatedClass(University.class);
                 configuration.addAnnotatedClass(Grades.class);

@@ -54,4 +54,10 @@ public class StudentService implements Service<Student> {
     public StudentDao studentDao() {
         return studentDao;
     }
+
+    public void saveOrUpdate(Student student) {
+        if (student.getId() != null && findById(student.getId()) != null)
+            update(student);
+        else persist(student);
+    }
 }

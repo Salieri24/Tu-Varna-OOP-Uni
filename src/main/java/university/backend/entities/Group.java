@@ -22,5 +22,9 @@ public class Group {
     @JoinColumn(name = "group_id")
     private List<Student> students = new ArrayList<>();
 
-
+    @Override
+    public String toString() {
+        return "Name='" + name + '\'' +
+                ", Students:" + students.size();
+    }
 }

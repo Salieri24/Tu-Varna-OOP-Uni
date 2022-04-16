@@ -79,4 +79,8 @@ public class UniversityDao implements DaoInterface<University, Long> {
             delete(entity);
         }
     }
+
+    public List<University> findAllByName(String searchText) {
+        return (List<University>) getCurrentSession().createQuery("from University u where u.name like :uniName").setParameter("uniName","%"+searchText+"%").list();
+    }
 }

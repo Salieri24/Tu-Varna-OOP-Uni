@@ -18,7 +18,7 @@ public class UpdateOnFocus<T> implements WindowFocusListener {
 
     @Override
     public void windowGainedFocus(WindowEvent e) {
-        System.out.println("FOCUS GAINED");
+        System.out.println("Focus on "+ backendService.getClass().getSimpleName());
         List<T> all = this.backendService.findAll();
         listModel.clear();
         listModel.addAll(all);
@@ -26,6 +26,6 @@ public class UpdateOnFocus<T> implements WindowFocusListener {
 
     @Override
     public void windowLostFocus(WindowEvent e) {
-        System.out.println("FOCUS LOST");
+        System.out.println("Focus lost");
     }
 }

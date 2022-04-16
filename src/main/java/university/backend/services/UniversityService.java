@@ -60,4 +60,11 @@ public class UniversityService implements Service<University> {
         if (university.getId() != null) update(university);
         else persist(university);
     }
+
+    public List<University> findAllByName(String searchText) {
+        universityDao.openCurrentSession();
+        List<University> all = universityDao.findAllByName(searchText);
+        universityDao.closeCurrentSession();
+        return all;
+    }
 }
