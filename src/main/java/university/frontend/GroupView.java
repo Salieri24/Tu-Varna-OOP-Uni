@@ -10,8 +10,7 @@ import java.util.Iterator;
 
 public class GroupView {
     private final JFrame frame;
-    private final DefaultListModel<Student> students;
-    private Group group;
+    private final Group group;
     private JPanel root;
     private JButton saveButton;
     private JList<Student> studentsList;
@@ -27,24 +26,27 @@ public class GroupView {
         frame = new JFrame("Group");
         start();
         this.groupName.setText(group.getName());
-        students = new DefaultListModel<>();
+        DefaultListModel<Student> students = new DefaultListModel<>();
         students.addAll(this.group.getStudents());
         studentsList.setModel(students);
         groupService = new GroupService();
         saveButton.addActionListener(e -> saveGroup());
         newButton.addActionListener(e -> newStudent());
         openButton.addActionListener(e -> openSelectedStudent());
-        frame.addWindowFocusListener(new UpdateOnFocus<>(new StudentService(), students));
+        frame.addWindowFocusListener(new UpdateOnFocus<>(service -> new StudentService().findAllInGroup(group.getId()), students));
     }
 
     public void start() {
         frame.setContentPane(this.root);
-        frame.setSize(600, 400);
+        Dashboard.setDefaultFrameOptions(frame);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
     }
     public void newStudent(){
         Student s = new Student();
+//        this.group.getStudents().add(s);
+//        StudentService studentService = new StudentService();
+//        studentService.persist(s);
         new StudentView(s,group);
     }
     public void openSelectedStudent(){
@@ -54,11 +56,11 @@ public class GroupView {
     }
     public void saveGroup(){
         group.setName(this.groupName.getText());
-        Iterator<Student> studentIter = students.elements().asIterator();
-        while(studentIter.hasNext())
-        {
-            group.getStudents().add(studentIter.next());
-        }
+//        Iterator<Student> studentIter = students.elements().asIterator();
+//        while(studentIter.hasNext())
+//        {
+//            group.getStudents().add(studentIter.next());
+//        }
         groupService.saveOrUpdate(group);
         frame.dispose();
     }

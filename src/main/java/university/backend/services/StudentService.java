@@ -3,19 +3,27 @@ package university.backend.services;
 import university.backend.dao.StudentDao;
 import university.backend.entities.Student;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class StudentService implements Service<Student> {
     private static StudentDao studentDao;
 
+    private static final StudentService instance = new StudentService();
+
+    public static StudentDao getStudentDao() {
+        return studentDao;
+    }
+
     public StudentService() {
         studentDao = new StudentDao();
     }
 
-    public void persist(Student entity) {
+    public Student persist(Student entity) {
         studentDao.openCurrentSessionWithTransaction();
-        studentDao.persist(entity);
+        Long id = studentDao.persist(entity);
         studentDao.closeCurrentSessionWithTransaction();
+        return findById(id);
     }
 
     public void update(Student entity) {
@@ -42,6 +50,15 @@ public class StudentService implements Service<Student> {
         studentDao.openCurrentSession();
         List<Student> students = studentDao.findAll();
         studentDao.closeCurrentSession();
+        return students;
+    }
+
+    public List<Student> findAllInGroup(Long groupId) {
+        studentDao.openCurrentSession();
+        List<Student> students = studentDao.findAllInGroup(groupId);
+        studentDao.closeCurrentSession();
+        System.out.println("Got all students in group with id=" + groupId);
+        System.out.println(Arrays.toString(students.toArray()));
         return students;
     }
 

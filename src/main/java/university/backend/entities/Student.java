@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Getter
 @Setter
@@ -22,16 +23,31 @@ public class Student {
     private Long id;
     private String firstName;
     private String lastName;
+    private String facultyNum;
     private LocalDate dateOfBirth;
+    private Long groupId;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
     private List<Grades> gradesList = new ArrayList<>();
 
-    public Student(String firstName, String lastName, LocalDate dateOfBirth, List<Grades> gradesList) {
+    public Student(String firstName, String lastName, LocalDate dateOfBirth, String facultyNum,List<Grades> gradesList) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        this.facultyNum = facultyNum;
         this.gradesList = gradesList;
     }
-    //todo:add tostring
+
+    public Student(String first, String last, LocalDate dob, String fac) {
+        this.firstName = first;
+        this.lastName = last;
+        this.dateOfBirth = dob;
+        this.facultyNum = fac;
+    }
+
+    @Override
+    public String toString() {
+        String s = firstName + "  " + lastName;
+        return s.toUpperCase(Locale.ROOT);
+    }
 }

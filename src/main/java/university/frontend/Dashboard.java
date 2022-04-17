@@ -23,11 +23,11 @@ public class Dashboard {
     private JTextField searchTextField;
     private JButton searchButton;
 
-    private UniversityService universityService = new UniversityService();
+    private final UniversityService universityService = new UniversityService();
     private final DefaultListModel<University> uniListModel;
 
     public Dashboard(JFrame jframe) {
-        jframe.setSize(600, 400);
+        Dashboard.setDefaultFrameOptions(jframe);
         jframe.setContentPane(mainPanel);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.setVisible(true);
@@ -64,5 +64,11 @@ public class Dashboard {
             University selectedValue = dashboard.uniList.getSelectedValue();
             openUniversity(selectedValue);
         }
+    }
+
+    public static void setDefaultFrameOptions(JFrame jframe){
+        jframe.setSize(600, 400);
+        jframe.setLocationRelativeTo(null);
+        jframe.setVisible(true);
     }
 }

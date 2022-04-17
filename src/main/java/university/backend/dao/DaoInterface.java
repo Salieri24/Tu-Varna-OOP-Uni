@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface DaoInterface<T, Id extends Serializable> {
 
-    void persist(T entity);
+    Long persist(T entity);
 
     void update(T entity);
 

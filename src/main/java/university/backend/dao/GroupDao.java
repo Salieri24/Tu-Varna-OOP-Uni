@@ -2,10 +2,12 @@ package university.backend.dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 import university.backend.entities.Group;
 import university.backend.util.HibernateUtil;
 
 import java.util.List;
+
 
 public class GroupDao implements DaoInterface<Group, Long> {
     private Session currentSession;
@@ -52,8 +54,8 @@ public class GroupDao implements DaoInterface<Group, Long> {
         this.currentTransaction = currentTransaction;
     }
 
-    public void persist(Group entity) {
-        getCurrentSession().save(entity);
+    public Long persist(Group entity) {
+        return (Long) getCurrentSession().save(entity);
     }
 
     public void update(Group entity) {
@@ -78,5 +80,10 @@ public class GroupDao implements DaoInterface<Group, Long> {
         for (Group entity : entityList) {
             delete(entity);
         }
+    }
+
+    public List<Group> findAllByUniversity(Long universityId) {
+        return getCurrentSession().createNativeQuery("select g.* from group_table g where g.uni_id = :uni_id", Group.class)
+                .setParameter("uni_id", universityId).list();
     }
 }

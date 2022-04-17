@@ -7,6 +7,7 @@ import university.backend.util.HibernateUtil;
 
 import java.util.List;
 
+@SuppressWarnings("ALL")
 public class StudentDao implements DaoInterface<Student, Long> {
     private Session currentSession;
 
@@ -52,8 +53,8 @@ public class StudentDao implements DaoInterface<Student, Long> {
         this.currentTransaction = currentTransaction;
     }
 
-    public void persist(Student entity) {
-        getCurrentSession().save(entity);
+    public Long persist(Student entity) {
+        return (Long) getCurrentSession().save(entity);
     }
 
     public void update(Student entity) {
@@ -71,6 +72,10 @@ public class StudentDao implements DaoInterface<Student, Long> {
     @SuppressWarnings("unchecked")
     public List<Student> findAll() {
         return (List<Student>) getCurrentSession().createQuery("from Student").list();
+    }
+
+    public List<Student> findAllInGroup(Long groupId) {
+        return (List<Student>) getCurrentSession().createNativeQuery("select s.* from student s where s.group_id = :uni_group",Student.class).setParameter("uni_group",groupId).list();
     }
 
     public void deleteAll() {

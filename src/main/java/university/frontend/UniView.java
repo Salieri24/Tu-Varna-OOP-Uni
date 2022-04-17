@@ -15,7 +15,6 @@ public class UniView {
 
     private final DefaultListModel<Group> groups;
     private final JFrame frame;
-    private final DefaultListModel<Student> students;
     private JPanel root;
     private JList<Group> groupJList;
     private JButton saveButton;
@@ -37,18 +36,18 @@ public class UniView {
     public UniView(University selectedValue) {
         this.university = selectedValue;
         frame = new JFrame(this.university.getName());
+        Dashboard.setDefaultFrameOptions(frame);
         frame.setContentPane(this.root);
-        frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
 
         groups = new DefaultListModel<>();
-        students = new DefaultListModel<>();
+        DefaultListModel<Student> students = new DefaultListModel<>();
         groups.addAll(this.university.getGroups());
 
         this.groupJList.setModel(groups);
         this.uniNameText.setText(university.getName());
-        this.frame.addWindowFocusListener(new UpdateOnFocus<>(new GroupService(), groups));
+        this.frame.addWindowFocusListener(new UpdateOnFocus<>(service -> GroupService.getInstance().findAllByUniversity(university.getId()), groups));
         this.frame.addWindowFocusListener(new UpdateOnFocus<>(new StudentService(), students));
         this.newGroupButton.addActionListener(e -> newGroup());
         this.openGroupButton.addActionListener(e -> openSelectedGroup());
@@ -78,7 +77,12 @@ public class UniView {
     }
 
     private void newGroup() {
-        this.openGroup(new Group());
+        Group group = new Group();
+        group.setUniversityId(university.getId());
+        String defaultName = "Group Name";
+        group.setName(defaultName);
+        Group save = GroupService.getInstance().persist(group);
+        this.openGroup(save);
     }
 
     private void openGroup(Group group) {

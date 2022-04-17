@@ -52,8 +52,8 @@ public class TeacherDao implements DaoInterface<Teacher, Long> {
         this.currentTransaction = currentTransaction;
     }
 
-    public void persist(Teacher entity) {
-        getCurrentSession().save(entity);
+    public Long persist(Teacher entity) {
+        return (Long) getCurrentSession().save(entity);
     }
 
     public void update(Teacher entity) {

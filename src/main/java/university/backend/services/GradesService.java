@@ -8,14 +8,19 @@ import java.util.List;
 public class GradesService implements Service<Grades> {
     private static GradesDao gradesDao;
 
+    private static final GradesService instance = new GradesService();
+
+
+
     public GradesService() {
         gradesDao = new GradesDao();
     }
 
-    public void persist(Grades entity) {
+    public Grades persist(Grades entity) {
         gradesDao.openCurrentSessionWithTransaction();
-        gradesDao.persist(entity);
+        Long l = gradesDao.persist(entity);
         gradesDao.closeCurrentSessionWithTransaction();
+        return findById(l);
     }
 
     public void update(Grades entity) {

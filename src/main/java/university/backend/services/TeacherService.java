@@ -8,14 +8,21 @@ import java.util.List;
 public class TeacherService implements Service<Teacher> {
     private static TeacherDao teacherDao;
 
+    private static final TeacherService instance = new TeacherService();
+
+    public static TeacherDao getTeacherDao() {
+        return teacherDao;
+    }
+
     public TeacherService() {
         teacherDao = new TeacherDao();
     }
 
-    public void persist(Teacher entity) {
+    public Teacher persist(Teacher entity) {
         teacherDao.openCurrentSessionWithTransaction();
-        teacherDao.persist(entity);
+        Long id = teacherDao.persist(entity);
         teacherDao.closeCurrentSessionWithTransaction();
+        return findById(id);
     }
 
     public void update(Teacher entity) {

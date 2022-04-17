@@ -52,8 +52,9 @@ public class GradesDao implements DaoInterface<Grades, Long> {
         this.currentTransaction = currentTransaction;
     }
 
-    public void persist(Grades entity) {
-        getCurrentSession().save(entity);
+    public Long persist(Grades entity) {
+
+        return (Long) getCurrentSession().save(entity);
     }
 
     public void update(Grades entity) {

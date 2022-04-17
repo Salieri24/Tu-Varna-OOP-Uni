@@ -52,8 +52,8 @@ public class UniversityDao implements DaoInterface<University, Long> {
         this.currentTransaction = currentTransaction;
     }
 
-    public void persist(University entity) {
-        getCurrentSession().save(entity);
+    public Long persist(University entity) {
+        return (Long) getCurrentSession().save(entity);
     }
 
     public void update(University entity) {
@@ -80,6 +80,7 @@ public class UniversityDao implements DaoInterface<University, Long> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public List<University> findAllByName(String searchText) {
         return (List<University>) getCurrentSession().createQuery("from University u where u.name like :uniName").setParameter("uniName","%"+searchText+"%").list();
     }
