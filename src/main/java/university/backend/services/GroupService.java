@@ -53,6 +53,7 @@ public class GroupService implements Service<Group> {
     }
 
     public List<Group> findAllByUniversity(Long universityId){
+        if(universityId == null) return new ArrayList<>();
         System.out.println("Finding all Groups within university with id =" + universityId);
         groupDao.openCurrentSession();
         List<Group> groups = groupDao.findAllByUniversity(universityId);

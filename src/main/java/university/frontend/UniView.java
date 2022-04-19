@@ -67,6 +67,7 @@ public class UniView {
         this.groupJList.setModel(groups);
         this.studentsList.setModel(students);
         this.uniNameText.setText(university.getName());
+        this.frame.addWindowFocusListener(new UpdateOnFocus<>(service -> universityService.getAllSubjects(university.getId()), subjects));
         this.frame.addWindowFocusListener(new UpdateOnFocus<>(service -> groupService.getAllStudents(university.getId()), students));
         this.frame.addWindowFocusListener(new UpdateOnFocus<>(service -> GroupService.getInstance().findAllByUniversity(university.getId()), groups));
         this.frame.addWindowFocusListener(new UpdateOnFocus<>(service -> TeacherService.getInstance().findAll(),teachers));

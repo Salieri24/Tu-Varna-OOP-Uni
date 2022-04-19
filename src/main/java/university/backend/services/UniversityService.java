@@ -74,10 +74,10 @@ public class UniversityService implements Service<University> {
         else persist(university);
     }
 
-    public List<String> getAllSubjects() {
-        List<String> list = new ArrayList<>();
+    public List<String> getAllSubjects(Long id) {
+        if(id == null) return  new ArrayList<>();
         universityDao.openCurrentSessionWithTransaction();
-//        universityDao.getAllSubjects();
+        List<String> list = new ArrayList<>(universityDao.getAllSubjects(id));
         universityDao.closeCurrentSessionWithTransaction();
         return list;
     }

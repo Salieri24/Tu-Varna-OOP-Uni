@@ -5,6 +5,7 @@ import org.hibernate.Transaction;
 import university.backend.entities.University;
 import university.backend.util.HibernateUtil;
 
+import java.util.Collection;
 import java.util.List;
 
 public class UniversityDao implements DaoInterface<University, Long> {
@@ -83,5 +84,10 @@ public class UniversityDao implements DaoInterface<University, Long> {
     @SuppressWarnings("unchecked")
     public List<University> findAllByName(String searchText) {
         return (List<University>) getCurrentSession().createQuery("from University u where u.name like :uniName").setParameter("uniName","%"+searchText+"%").list();
+    }
+
+    public List<String> getAllSubjects(Long id) {
+        return getCurrentSession().createNativeQuery("select s.subject from subjects s where s.university_id = :id")
+                .setParameter("id",id).list();
     }
 }

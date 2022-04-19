@@ -52,7 +52,9 @@ public class Dashboard {
     }
 
     private static void newUni() {
-        openUniversity(new University());
+        University university = new University();
+        UniversityService.getInstance().persist(university);
+        openUniversity(university);
     }
 
     private static void openUniversity(University selectedValue) {
