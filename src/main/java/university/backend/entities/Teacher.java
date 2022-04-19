@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Getter
 @Setter
@@ -22,9 +23,13 @@ public class Teacher {
     private Long id;
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_id")
     private List<university.backend.entities.Group> groupList = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        String s = firstName + " " + lastName;
+        return s.toUpperCase(Locale.ROOT);
+    }
 }

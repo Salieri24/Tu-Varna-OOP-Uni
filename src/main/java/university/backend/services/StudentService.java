@@ -11,8 +11,8 @@ public class StudentService implements Service<Student> {
 
     private static final StudentService instance = new StudentService();
 
-    public static StudentDao getStudentDao() {
-        return studentDao;
+    public static StudentService getInstance() {
+        return instance;
     }
 
     public StudentService() {

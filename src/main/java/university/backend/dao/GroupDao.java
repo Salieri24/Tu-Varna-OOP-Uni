@@ -4,6 +4,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 import university.backend.entities.Group;
+import university.backend.entities.Student;
+import university.backend.entities.Teacher;
 import university.backend.util.HibernateUtil;
 
 import java.util.List;
@@ -85,5 +87,18 @@ public class GroupDao implements DaoInterface<Group, Long> {
     public List<Group> findAllByUniversity(Long universityId) {
         return getCurrentSession().createNativeQuery("select g.* from group_table g where g.uni_id = :uni_id", Group.class)
                 .setParameter("uni_id", universityId).list();
+    }
+
+    public List<Student> findAllByUniversityAndSearch(Long id, String search) {
+        return getCurrentSession().createNativeQuery("select s.* from group_table g join student s on g.group_id = s.group_id" +
+                        " where g.uni_id = :uni_id and concat(s.firstname,s.lastname,s.facultynum) like :search", Student.class)
+                .setParameter("uni_id", id)
+                .setParameter("search","%"+search+"%")
+                .list();
+    }
+
+    public List<Group> findAllByTeacher(Long id) {
+        return getCurrentSession().createNativeQuery("select g.* from group_table g where  g.teacher_id = :teacher", Group.class)
+                .setParameter("teacher",id).list();
     }
 }

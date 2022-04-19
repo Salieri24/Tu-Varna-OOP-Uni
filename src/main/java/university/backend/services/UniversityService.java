@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.common.util.impl.Log;
 import org.jboss.logging.Logger;
 import university.backend.dao.UniversityDao;
+import university.backend.entities.Group;
+import university.backend.entities.Student;
 import university.backend.entities.University;
 
 import java.util.ArrayList;
@@ -14,8 +16,8 @@ public class UniversityService implements Service<University> {
 
     private static final UniversityService instance = new UniversityService();
 
-    public static UniversityDao getUniversityDao() {
-        return universityDao;
+    public static UniversityService getInstance() {
+        return instance;
     }
 
     public UniversityService() {
@@ -26,7 +28,7 @@ public class UniversityService implements Service<University> {
         universityDao.openCurrentSessionWithTransaction();
         Long id = universityDao.persist(entity);
         universityDao.closeCurrentSessionWithTransaction();
-        System.out.println("Saved university with id ="+id);
+        System.out.println("Saved university with id =" + id);
         return findById(id);
     }
 
@@ -72,10 +74,24 @@ public class UniversityService implements Service<University> {
         else persist(university);
     }
 
+    public List<String> getAllSubjects() {
+        List<String> list = new ArrayList<>();
+        universityDao.openCurrentSessionWithTransaction();
+//        universityDao.getAllSubjects();
+        universityDao.closeCurrentSessionWithTransaction();
+        return list;
+    }
+
     public List<University> findAllByName(String searchText) {
         universityDao.openCurrentSession();
         List<University> all = universityDao.findAllByName(searchText);
         universityDao.closeCurrentSession();
         return all;
+    }
+
+    public String[] getSpecialities(Long groupId){
+        Group byId = GroupService.getInstance().findById(groupId);
+        University university = findById(byId.getUniversityId());
+        return university.getSubjects().toArray(new String[0]);
     }
 }

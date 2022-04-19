@@ -3,6 +3,7 @@ package university.backend.dao;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import university.backend.entities.Grades;
+import university.backend.entities.Group;
 import university.backend.util.HibernateUtil;
 
 import java.util.List;
@@ -79,5 +80,9 @@ public class GradesDao implements DaoInterface<Grades, Long> {
         for (Grades entity : entityList) {
             delete(entity);
         }
+    }
+
+    public List<Grades> findAllByStudentId(Long id) {
+        return getCurrentSession().createNativeQuery("select g.* from grades g where g.student_id = :id", Grades.class).setParameter("id",id).list();
     }
 }

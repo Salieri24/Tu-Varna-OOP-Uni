@@ -1,5 +1,6 @@
 package university.backend.entities;
 
+import jdk.jfr.StackTrace;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,5 +36,12 @@ public class Grades {
     public String toString() {
         return "subjectName='" + subjectName + '\'' +
                 ", points=" + points;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Grades that)
+            return this.getSubjectName().equals(that.getSubjectName());
+        else return false;
     }
 }

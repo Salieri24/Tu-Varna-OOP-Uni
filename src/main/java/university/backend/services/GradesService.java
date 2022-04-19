@@ -10,7 +10,7 @@ public class GradesService implements Service<Grades> {
 
     private static final GradesService instance = new GradesService();
 
-
+    public static GradesService getInstance(){return instance;}
 
     public GradesService() {
         gradesDao = new GradesDao();
@@ -45,9 +45,16 @@ public class GradesService implements Service<Grades> {
 
     public List<Grades> findAll() {
         gradesDao.openCurrentSession();
-        List<Grades> gradess = gradesDao.findAll();
+        List<Grades> grades = gradesDao.findAll();
         gradesDao.closeCurrentSession();
-        return gradess;
+        return grades;
+    }
+
+    public List<Grades> findAllForStudent(Long id) {
+        gradesDao.openCurrentSession();
+        List<Grades> grades = gradesDao.findAllByStudentId(id);
+        gradesDao.closeCurrentSession();
+        return grades;
     }
 
     public void deleteAll() {

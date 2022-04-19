@@ -2,7 +2,9 @@ package university.backend.services;
 
 import university.backend.dao.GroupDao;
 import university.backend.entities.Group;
+import university.backend.entities.Student;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -68,10 +70,32 @@ public class GroupService implements Service<Group> {
     public GroupDao groupDao() {
         return groupDao;
     }
-
     public void saveOrUpdate(Group group) {
         if (group.getId() != null && findById(group.getId()) != null)
             update(group);
         else persist(group);
+    }
+
+    public List<Student> getAllStudents(Long universityId) {
+        List<Student> students = new ArrayList<>();
+        List<Group> groups = findAllByUniversity(universityId);
+        for (Group group : groups)
+            students.addAll(group.getStudents());
+        return students;
+    }
+
+    public List<Student> getAllStudentsBySearch(Long id, String search) {
+        groupDao.openCurrentSession();
+        List<Student> students = groupDao.findAllByUniversityAndSearch(id,search);
+        groupDao.closeCurrentSession();
+        return students;
+    }
+
+    public List<Group> findByTeacherId(Long id) {
+        if(id == null) return new ArrayList<>();
+        groupDao.openCurrentSession();
+        List<Group> groups = groupDao.findAllByTeacher(id);
+        groupDao.closeCurrentSession();
+        return groups;
     }
 }

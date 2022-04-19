@@ -23,6 +23,7 @@ Todo:
   - [x] View Groups
   - [ ] View Students in University
   - [ ] View Teachers
+  - [ ] Add and remove subjects
 - [x] Group View
   - [x] Manage group and add students
 - [ ] Student View

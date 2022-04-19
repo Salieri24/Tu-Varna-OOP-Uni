@@ -1,8 +1,10 @@
 package university.backend.services;
 
 import university.backend.dao.TeacherDao;
+import university.backend.entities.Group;
 import university.backend.entities.Teacher;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherService implements Service<Teacher> {
@@ -16,6 +18,10 @@ public class TeacherService implements Service<Teacher> {
 
     public TeacherService() {
         teacherDao = new TeacherDao();
+    }
+
+    public static TeacherService getInstance() {
+        return instance;
     }
 
     public Teacher persist(Teacher entity) {
@@ -60,5 +66,10 @@ public class TeacherService implements Service<Teacher> {
 
     public TeacherDao teacherDao() {
         return teacherDao;
+    }
+
+    public void saveOrUpdate(Teacher teacher) {
+        if(teacher.getId()!=null) update(teacher);
+        else persist(teacher);
     }
 }

@@ -7,9 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Getter
 @Setter
@@ -28,9 +26,9 @@ public class Student {
     private Long groupId;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
-    private List<Grades> gradesList = new ArrayList<>();
+    private Set<Grades> gradesList = new HashSet<>();
 
-    public Student(String firstName, String lastName, LocalDate dateOfBirth, String facultyNum,List<Grades> gradesList) {
+    public Student(String firstName, String lastName, LocalDate dateOfBirth, String facultyNum, Set<Grades> gradesList) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;

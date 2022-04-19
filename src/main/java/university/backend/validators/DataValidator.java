@@ -18,4 +18,18 @@ public class DataValidator {
         LocalDate dateOfBirth = student.getDateOfBirth();
         if(dateOfBirth.getYear()<1900 && dateOfBirth.isAfter(LocalDate.now())) throw new RuntimeException("Invalid birth date");
     }
+
+    public static boolean validateSubject(String text) {
+        return true;
+    }
+    public static void validatePoints(String text){
+        if(!text.matches(justNumbers.pattern())) throw new RuntimeException("Invalid first name");
+        int i = Integer.parseInt(text);
+        if(i>100 || i<0) throw new RuntimeException("Invalid points. They should be between 0 and 100");
+    }
+
+    public static void validateTeacher(String text, String text1) {
+        if(!text.matches(nameRegex.pattern())) throw new RuntimeException("Invalid first name");
+        if(!text1.matches(nameRegex.pattern())) throw new RuntimeException("Invalid last name");
+    }
 }
