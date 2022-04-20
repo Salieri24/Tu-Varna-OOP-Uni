@@ -19,15 +19,15 @@ Todo:
 ---
 - [x] Setup backend
 - [x] Dashboard
-- [ ] University view
+- [x] University view
   - [x] View Groups
-  - [ ] View Students in University
-  - [ ] View Teachers
-  - [ ] Add and remove subjects
+  - [x] View Students in University
+  - [x] View Teachers
+  - [x] Add and remove subjects
 - [x] Group View
   - [x] Manage group and add students
-- [ ] Student View
+- [x] Student View
   - [x] Edit information
-  - [ ] View, manage grades
-- [ ] Teacher View
-  - [ ] View Assigned students, groups
+  - [x] View, manage grades
+- [x] Teacher View
+  - [x] View Assigned students, groups
